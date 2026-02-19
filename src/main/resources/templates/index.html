@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CIESA – Ingeniería con rostro humano</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<div th:replace="~{fragmentos :: navbar}"></div>
+
+<!-- HERO -->
+<section class="hero-section">
+    <div>
+        <h1>CIESA: Ingeniería con rostro humano</h1>
+        <p>Diseñamos eficiencia, construimos progreso</p>
+        <a th:href="@{/contacto}" class="btn-teal">Contáctenos</a>
+        <a th:href="@{/servicios}" class="btn-teal-outline">Ver servicios</a>
+    </div>
+</section>
+
+<!-- SOBRE NOSOTROS -->
+<section>
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <p class="section-title" style="text-align:left;">Sobre nosotros</p>
+                <h2 style="font-weight:700; font-size:1.9rem; margin-bottom:20px;">
+                    Empresa costarricense con experiencia técnica comprobada
+                </h2>
+                <p style="color:#555; line-height:1.8;">
+                    CIESA es una corporación consultora y constructora costarricense especializada en
+                    ingeniería electromecánica, construcción y remodelaciones. Estamos afiliados al
+                    Colegio Federado de Ingenieros y Arquitectos (CFIA), lo que respalda nuestro
+                    compromiso con la excelencia técnica y profesional.
+                </p>
+                <p style="color:#555; line-height:1.8; margin-top:14px;">
+                    Desde 2010, combinamos conocimiento técnico, compromiso humano y visión sostenible
+                    para transformar proyectos en realidades confiables.
+                </p>
+                <a th:href="@{/nosotros}" class="btn-teal mt-3" style="display:inline-block;">
+                    Conócenos
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <img th:src="@{/img/nosotros.jpg}" alt="CIESA" class="img-fluid rounded"
+                     style="box-shadow: 0 8px 30px rgba(0,0,0,0.12);"
+                     onerror="this.src='https://placehold.co/600x400/006B6B/white?text=CIESA'">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="bg-light-ciesa">
+    <div class="container">
+        <p class="section-title">Nuestros servicios</p>
+        <h2 class="section-heading">Soluciones integrales en ingeniería y construcción</h2>
+        <p class="section-sub">Ofrecemos servicios especializados para proyectos comerciales, residenciales e industriales</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-servicio">
+                    <div class="icon-wrap"><i class="fas fa-bolt"></i></div>
+                    <h5>Servicios electromecánicos integrales</h5>
+                    <p>Diseño, instalación y mantenimiento de sistemas eléctricos, mecánicos y de automatización para proyectos de cualquier escala.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-servicio">
+                    <div class="icon-wrap"><i class="fas fa-hard-hat"></i></div>
+                    <h5>Construcción y remodelación de obras</h5>
+                    <p>Ejecución completa de proyectos de construcción nueva y remodelación de espacios comerciales, residenciales e industriales.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-servicio">
+                    <div class="icon-wrap"><i class="fas fa-drafting-compass"></i></div>
+                    <h5>Diseño y elaboración de planos</h5>
+                    <p>Desarrollo de planos técnicos y constructivos con estándares profesionales para proyectos de ingeniería y arquitectura.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-servicio">
+                    <div class="icon-wrap"><i class="fas fa-file-alt"></i></div>
+                    <h5>Tramitología y permisos de construcción</h5>
+                    <p>Gestión completa de permisos municipales, visados del CFIA y trámites necesarios para la legalización de proyectos.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-servicio">
+                    <div class="icon-wrap"><i class="fas fa-network-wired"></i></div>
+                    <h5>Infraestructura eléctrica, mecánica y sanitaria</h5>
+                    <p>Instalación de sistemas de infraestructura crítica incluyendo redes eléctricas, mecánicas, hidráulicas y sanitarias.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card-servicio">
+                    <div class="icon-wrap"><i class="fas fa-fire-extinguisher"></i></div>
+                    <h5>Sistemas contra incendio</h5>
+                    <p>Diseño e instalación de sistemas de protección contra incendios cumpliendo normativas NFPA y requerimientos del Benemérito Cuerpo de Bomberos.</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a th:href="@{/servicios}" class="btn-teal">Ver todos los servicios</a>
+        </div>
+    </div>
+</section>
+
+<!-- PROYECTOS -->
+<section>
+    <div class="container">
+        <p class="section-title">Proyectos realizados</p>
+        <h2 class="section-heading">Experiencia en proyectos de infraestructura</h2>
+        <p class="section-sub">Galería de trabajos ejecutados en diferentes sectores</p>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="proyecto-card">
+                    <img th:src="@{/img/proyecto1.jpg}" alt="Proyecto"
+                         onerror="this.src='https://placehold.co/400x220/2C2C2C/white?text=Proyecto+1'">
+                    <div class="proyecto-overlay">
+                        <span class="proyecto-badge">Electromecánica</span>
+                        <h6>Instalación de tubería HN y aislante</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="proyecto-card">
+                    <img th:src="@{/img/proyecto2.jpg}" alt="Proyecto"
+                         onerror="this.src='https://placehold.co/400x220/2C2C2C/white?text=Proyecto+2'">
+                    <div class="proyecto-overlay">
+                        <span class="proyecto-badge">Infraestructura</span>
+                        <h6>Instalación de tubería PVC y accesos</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="proyecto-card">
+                    <img th:src="@{/img/proyecto3.jpg}" alt="Proyecto"
+                         onerror="this.src='https://placehold.co/400x220/2C2C2C/white?text=Proyecto+3'">
+                    <div class="proyecto-overlay">
+                        <span class="proyecto-badge">Electromecánica</span>
+                        <h6>Tubería HN céd. 40 y aislante</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="proyecto-card">
+                    <img th:src="@{/img/proyecto4.jpg}" alt="Proyecto"
+                         onerror="this.src='https://placehold.co/400x220/2C2C2C/white?text=Proyecto+4'">
+                    <div class="proyecto-overlay">
+                        <span class="proyecto-badge">Infraestructura</span>
+                        <h6>Planificación de obra previa</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="proyecto-card">
+                    <img th:src="@{/img/proyecto5.jpg}" alt="Proyecto"
+                         onerror="this.src='https://placehold.co/400x220/2C2C2C/white?text=Proyecto+5'">
+                    <div class="proyecto-overlay">
+                        <span class="proyecto-badge">Electromecánica</span>
+                        <h6>Instalación de luminarias suspendidas</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="proyecto-card">
+                    <img th:src="@{/img/proyecto6.jpg}" alt="Proyecto"
+                         onerror="this.src='https://placehold.co/400x220/2C2C2C/white?text=Proyecto+6'">
+                    <div class="proyecto-overlay">
+                        <span class="proyecto-badge">Electromecánica</span>
+                        <h6>Instalación eléctrica: iluminación y tomacorrientes</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <a th:href="@{/proyectos}" class="btn-teal">Ver proyectos</a>
+        </div>
+    </div>
+</section>
+
+<!-- RESPALDO PROFESIONAL -->
+<section class="bg-light-ciesa">
+    <div class="container">
+        <h2 class="section-heading">Respaldo profesional y técnico</h2>
+        <p class="section-sub">Comprometidos con la excelencia y el cumplimiento normativo</p>
+        <div class="row g-4 text-center">
+            <div class="col-md-3">
+                <div class="stat-box">
+                    <i class="fas fa-award fa-2x mb-3" style="color:var(--teal);"></i>
+                    <h6 style="font-weight:700;">Afiliados al CFIA</h6>
+                    <p style="color:#555; font-size:0.88rem;">Colegio Federado de Ingenieros y Arquitectos de Costa Rica</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-box">
+                    <i class="fas fa-landmark fa-2x mb-3" style="color:var(--teal);"></i>
+                    <h6 style="font-weight:700;">Experiencia en licitaciones públicas</h6>
+                    <p style="color:#555; font-size:0.88rem;">Proyectos con instituciones del estado costarricense</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-box">
+                    <i class="fas fa-industry fa-2x mb-3" style="color:var(--teal);"></i>
+                    <h6 style="font-weight:700;">Proyectos en zonas francas</h6>
+                    <p style="color:#555; font-size:0.88rem;">Experiencia en infraestructura industrial especializada</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-box">
+                    <i class="fas fa-check-double fa-2x mb-3" style="color:var(--teal);"></i>
+                    <h6 style="font-weight:700;">Cumplimiento técnico y normativo</h6>
+                    <p style="color:#555; font-size:0.88rem;">Apego a normas nacionales e internacionales</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h3>¿Tiene un proyecto en planificación?</h3>
+        <p style="margin-bottom:30px; opacity:0.8;">Contáctenos para una asesoría profesional sin compromiso</p>
+        <a href="https://wa.me/50686586161" target="_blank" class="btn-teal">
+            <i class="fab fa-whatsapp"></i> Escríbanos por WhatsApp
+        </a>
+    </div>
+</section>
+
+<div th:replace="~{fragmentos :: footer}"></div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

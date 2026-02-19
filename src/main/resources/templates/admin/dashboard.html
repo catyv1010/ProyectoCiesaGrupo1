@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Panel Administrativo – CIESA</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="brand">
+        <i class="fa fa-building" style="color:white;"></i>
+        <span>&nbsp;CIESA | Admin</span>
+    </div>
+    <nav class="nav flex-column">
+        <a class="nav-link active" th:href="@{/admin/dashboard}">
+            <i class="fas fa-chart-bar"></i> Dashboard
+        </a>
+        <a class="nav-link" th:href="@{/admin/contactos}">
+            <i class="fas fa-envelope"></i> Solicitudes contacto
+        </a>
+        <a class="nav-link" th:href="@{/admin/postulaciones}">
+            <i class="fas fa-briefcase"></i> Postulaciones laborales
+        </a>
+        <hr style="border-color:rgba(255,255,255,0.1); margin:12px 16px;">
+        <a class="nav-link" th:href="@{/}">
+            <i class="fas fa-globe"></i> Ver sitio
+        </a>
+        <a class="nav-link" th:href="@{/logout}" style="color:#f87171 !important;">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </a>
+    </nav>
+</div>
+
+<!-- NAVBAR ADMIN TOP -->
+<div class="admin-navbar">
+    <h6 style="margin:0; font-weight:700;">Panel Administrativo</h6>
+    <div style="display:flex; align-items:center; gap:12px;">
+        <span style="color:#555; font-size:0.9rem;">
+            <i class="fas fa-user-circle"></i>
+            <span sec:authentication="name">Administrador</span>
+        </span>
+        <a th:href="@{/logout}" class="btn btn-sm btn-outline-danger">
+            <i class="fas fa-sign-out-alt"></i> Salir
+        </a>
+    </div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="admin-content">
+    <h4 style="font-weight:700; margin-bottom:6px;">Bienvenido al Panel Administrativo</h4>
+    <p style="color:#555; margin-bottom:30px;">Desde aquí puede gestionar el contenido del sitio web y revisar las solicitudes recibidas.</p>
+
+    <!-- STAT CARDS -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p style="color:#888; font-size:0.88rem; margin-bottom:6px;">Solicitudes de contacto</p>
+                        <div class="num" th:text="${totalContactos}">0</div>
+                        <p class="label">Mensajes recibidos</p>
+                    </div>
+                    <div style="background:#f0f8f8; padding:12px; border-radius:10px;">
+                        <i class="fas fa-envelope fa-lg" style="color:var(--teal);"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="badge-nuevo" th:text="${contactosNuevos} + ' nuevos'">0 nuevos</span>
+                </div>
+                <a th:href="@{/admin/contactos}" style="font-size:0.85rem; color:var(--teal); text-decoration:none; display:block; margin-top:12px;">
+                    Ver bandeja →
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p style="color:#888; font-size:0.88rem; margin-bottom:6px;">Postulaciones laborales</p>
+                        <div class="num" th:text="${totalPostulaciones}">0</div>
+                        <p class="label">CV recibidos</p>
+                    </div>
+                    <div style="background:#f0f8f8; padding:12px; border-radius:10px;">
+                        <i class="fas fa-briefcase fa-lg" style="color:var(--teal);"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <span class="badge-nuevo" th:text="${postulacionesNuevas} + ' por revisar'">0 por revisar</span>
+                </div>
+                <a th:href="@{/admin/postulaciones}" style="font-size:0.85rem; color:var(--teal); text-decoration:none; display:block; margin-top:12px;">
+                    Ver bandeja →
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p style="color:#888; font-size:0.88rem; margin-bottom:6px;">Estado del sitio</p>
+                        <div class="num" style="font-size:1.4rem; color:#22c55e;">En línea</div>
+                        <p class="label">Funcionando correctamente</p>
+                    </div>
+                    <div style="background:#f0f8f8; padding:12px; border-radius:10px;">
+                        <i class="fas fa-globe fa-lg" style="color:var(--teal);"></i>
+                    </div>
+                </div>
+                <a th:href="@{/}" target="_blank" style="font-size:0.85rem; color:var(--teal); text-decoration:none; display:block; margin-top:28px;">
+                    Ver sitio →
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

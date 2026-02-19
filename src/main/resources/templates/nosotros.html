@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nosotros – CIESA</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragmentos :: navbar}"></div>
+
+<!-- HERO -->
+<section class="hero-section" style="min-height:500px;">
+    <div>
+        <p style="opacity:0.7; font-size:0.95rem;">Nosotros</p>
+        <h1 style="font-size:2.2rem;">Somos una empresa costarricense formada por<br>profesionales en ingeniería electromecánica y civil</h1>
+        <p>Desde 2010, combinamos conocimiento técnico, compromiso humano y visión sostenible</p>
+    </div>
+</section>
+
+<!-- HISTORIA -->
+<section>
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5">
+                <img th:src="@{/img/historia.jpg}" alt="Historia CIESA" class="img-fluid rounded"
+                     onerror="this.src='https://placehold.co/500x380/2C2C2C/white?text=CIESA'">
+            </div>
+            <div class="col-lg-7">
+                <p class="section-title" style="text-align:left;">Nuestra Historia</p>
+                <h2 style="font-weight:700; font-size:1.9rem; margin-bottom:20px;">Más de una década construyendo confianza</h2>
+                <p style="color:#555; line-height:1.8;">
+                    CIESA nació en Cartago como el sueño de un ingeniero apasionado por la excelencia técnica
+                    y el servicio responsable. A lo largo de más de una década, hemos crecido junto a nuestros
+                    clientes, ofreciendo soluciones integrales en electricidad, electromecánica y construcción.
+                </p>
+                <p style="color:#555; line-height:1.8; margin-top:14px;">
+                    Nuestro compromiso se basa en la honestidad, la calidad y la innovación, pilares que guían
+                    cada proyecto desde el diseño hasta la entrega final.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRINCIPIOS -->
+<section class="bg-light-ciesa">
+    <div class="container">
+        <h2 class="section-heading">Nuestros Principios</h2>
+        <p class="section-sub">Los valores que nos definen y la visión que nos impulsa hacia el futuro</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="principios-card">
+                    <div class="icon-circle"><i class="fas fa-question"></i></div>
+                    <h5>Misión</h5>
+                    <p>Brindar soluciones electromecánicas integrales, seguras y sostenibles que superen las expectativas de nuestros clientes.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="principios-card">
+                    <div class="icon-circle"><i class="fas fa-eye"></i></div>
+                    <h5>Visión</h5>
+                    <p>Ser una empresa líder en ingeniería electromecánica en Costa Rica, reconocida por su calidad, innovación y compromiso humano.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="principios-card">
+                    <div class="icon-circle"><i class="fas fa-heart"></i></div>
+                    <h5>Valores</h5>
+                    <ul style="list-style:none; padding:0; text-align:left;">
+                        <li style="padding:4px 0;">• Excelencia técnica</li>
+                        <li style="padding:4px 0;">• Transparencia</li>
+                        <li style="padding:4px 0;">• Responsabilidad</li>
+                        <li style="padding:4px 0;">• Trabajo en equipo</li>
+                        <li style="padding:4px 0;">• Compromiso con el cliente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EQUIPO -->
+<section>
+    <div class="container">
+        <h2 class="section-heading">Nuestro Equipo de Trabajo</h2>
+        <p class="section-sub">Profesionales comprometidos con la excelencia y la innovación</p>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-5">
+                <div class="equipo-card">
+                    <img th:src="@{/img/walter.jpg}" alt="Ing. Walter Valverde"
+                         onerror="this.src='https://placehold.co/120x120/006B6B/white?text=WV'">
+                    <h5>Ing. Walter Valverde</h5>
+                    <p class="cargo">Ingeniero Electromecánico</p>
+                    <p style="color:#555; font-size:0.9rem;">Con una visión que une experiencia técnica y compromiso humano, Walter ha impulsado a CIESA desde sus cimientos. Su liderazgo constante y pasión por resolver desafíos complejos son la base de cada proyecto.</p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="equipo-card">
+                    <img th:src="@{/img/nancy.jpg}" alt="Ing. Nancy Alfaro"
+                         onerror="this.src='https://placehold.co/120x120/006B6B/white?text=NA'">
+                    <h5>Ing. Nancy Alfaro</h5>
+                    <p class="cargo">Ingeniera Civil</p>
+                    <p style="color:#555; font-size:0.9rem;">Lidera procesos de revisión técnica y coordina aspectos clave en la gestión de proyectos civiles, asegurando precisión, cumplimiento normativo y ejecución responsable.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="container">
+        <h3>Conocé la calidad detrás de cada obra.<br>Construimos soluciones, no solo proyectos.</h3>
+        <a th:href="@{/reunion}" class="btn-teal mt-3" style="display:inline-block;">Agendar una Reunión</a>
+    </div>
+</section>
+
+<div th:replace="~{fragmentos :: footer}"></div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

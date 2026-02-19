@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Empléate con nosotros – CIESA</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragmentos :: navbar}"></div>
+
+<section class="hero-section" style="min-height:280px;">
+    <div>
+        <h1 style="font-size:2.2rem;">Empléate con nosotros</h1>
+        <p>Forme parte de proyectos de ingeniería, construcción y electromecánica en Costa Rica.</p>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row g-5 justify-content-center">
+            <div class="col-lg-7">
+                <p style="color:#555; line-height:1.8; margin-bottom:30px;">
+                    En CIESA estamos en búsqueda constante de profesionales y técnicos comprometidos. 
+                    Si usted cuenta con experiencia en el sector y busca nuevas oportunidades laborales, 
+                    lo invitamos a completar el siguiente formulario.
+                </p>
+                <div class="form-card">
+                    <h5 style="font-weight:700; margin-bottom:24px;">Formulario de postulación</h5>
+                    <p style="color:#555; font-size:0.9rem; margin-bottom:24px;">Complete todos los campos requeridos para enviar su candidatura.</p>
+
+                    <form th:action="@{/empleo/enviar}" th:object="${postulacion}"
+                          method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre completo *</label>
+                            <input type="text" th:field="*{nombre}" class="form-control"
+                                   placeholder="Ingrese su nombre completo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Número de cédula *</label>
+                            <input type="text" th:field="*{cedula}" class="form-control"
+                                   placeholder="Ej: 1-1234-5678" required>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Correo electrónico *</label>
+                                <input type="email" th:field="*{correo}" class="form-control"
+                                       placeholder="correo@ejemplo.com" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Teléfono *</label>
+                                <input type="tel" th:field="*{telefono}" class="form-control"
+                                       placeholder="8888-8888" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Puesto de interés *</label>
+                            <select th:field="*{puesto}" class="form-select" required>
+                                <option value="">Seleccione un puesto</option>
+                                <option value="Ingeniero Eléctrico">Ingeniero Eléctrico</option>
+                                <option value="Ingeniero Civil">Ingeniero Civil</option>
+                                <option value="Técnico Electromecánico">Técnico Electromecánico</option>
+                                <option value="Dibujante / CAD">Dibujante / CAD</option>
+                                <option value="Maestro de Obras">Maestro de Obras</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Adjuntar currículum (PDF) *</label>
+                            <input type="file" name="archivoCv" class="form-control" accept=".pdf" required>
+                            <div class="form-text">Solo archivos PDF. Tamaño máximo: 5MB</div>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane me-2"></i> Enviar postulación
+                        </button>
+                        <p style="font-size:0.82rem; color:#888; margin-top:14px; text-align:center;">
+                            Sus datos serán tratados de manera confidencial y utilizados únicamente para procesos de reclutamiento de CIESA.
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- BENEFICIOS -->
+            <div class="col-lg-4">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="principios-card">
+                            <div class="icon-circle"><i class="fas fa-hard-hat"></i></div>
+                            <h5>Proyectos de calidad</h5>
+                            <p>Trabaje en proyectos de ingeniería y construcción de alto nivel técnico y profesional.</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="principios-card">
+                            <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
+                            <h5>Desarrollo profesional</h5>
+                            <p>Oportunidades de crecimiento y capacitación continua en el sector de la construcción.</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="principios-card">
+                            <div class="icon-circle"><i class="fas fa-users"></i></div>
+                            <h5>Ambiente laboral</h5>
+                            <p>Forme parte de un equipo comprometido con la excelencia y la seguridad laboral.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{fragmentos :: footer}"></div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

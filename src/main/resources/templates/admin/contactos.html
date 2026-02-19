@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contactos – CIESA Admin</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div class="sidebar">
+    <div class="brand"><i class="fa fa-building" style="color:white;"></i><span>&nbsp;CIESA | Admin</span></div>
+    <nav class="nav flex-column">
+        <a class="nav-link" th:href="@{/admin/dashboard}"><i class="fas fa-chart-bar"></i> Dashboard</a>
+        <a class="nav-link active" th:href="@{/admin/contactos}"><i class="fas fa-envelope"></i> Solicitudes contacto</a>
+        <a class="nav-link" th:href="@{/admin/postulaciones}"><i class="fas fa-briefcase"></i> Postulaciones laborales</a>
+        <hr style="border-color:rgba(255,255,255,0.1); margin:12px 16px;">
+        <a class="nav-link" th:href="@{/}"><i class="fas fa-globe"></i> Ver sitio</a>
+        <a class="nav-link" th:href="@{/logout}" style="color:#f87171 !important;"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+    </nav>
+</div>
+<div class="admin-navbar">
+    <h6 style="margin:0; font-weight:700;">Solicitudes de Contacto</h6>
+</div>
+<div class="admin-content">
+    <div class="bg-white rounded-3 shadow-sm p-4">
+        <table class="table table-hover">
+            <thead style="background:#f5f5f5;">
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Asunto</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${lista}">
+                    <td th:text="${c.idContacto}"></td>
+                    <td th:text="${c.nombre}"></td>
+                    <td th:text="${c.correo}"></td>
+                    <td th:text="${c.asunto}"></td>
+                    <td th:text="${#temporals.format(c.fechaEnvio, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td>
+                        <span th:if="${!c.leido}" class="badge-nuevo">Nuevo</span>
+                        <span th:if="${c.leido}" style="color:#888; font-size:0.85rem;">Leído</span>
+                    </td>
+                    <td>
+                        <a th:if="${!c.leido}" th:href="@{/admin/contactos/leido/{id}(id=${c.idContacto})}"
+                           class="btn btn-sm btn-outline-secondary">Marcar leído</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="7" style="text-align:center; color:#888; padding:30px;">No hay mensajes aún.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

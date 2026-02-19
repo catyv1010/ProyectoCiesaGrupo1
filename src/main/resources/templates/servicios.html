@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Servicios – CIESA</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div th:replace="~{fragmentos :: navbar}"></div>
+
+<section class="hero-section" style="min-height:500px;">
+    <div>
+        <h1 style="font-size:2.2rem;">Servicios Integrales para Construcción y Electromecánica</h1>
+        <p>Soluciones técnicas que combinan la ingeniería eléctrica y mecánica con precisión y confiabilidad</p>
+        <a th:href="@{/contacto}" class="btn-teal">Solicitar Cotización</a>
+    </div>
+</section>
+
+<!-- SERVICIOS -->
+<section>
+    <div class="container">
+        <h2 class="section-heading">Nuestros Servicios</h2>
+        <p class="section-sub">Soluciones integrales en ingeniería, construcción y remodelación</p>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card-servicio d-flex gap-3">
+                    <div class="icon-wrap flex-shrink-0"><i class="fas fa-bolt"></i></div>
+                    <div>
+                        <h5>Servicios Electromecánicos Integrales</h5>
+                        <p>Diseño, instalación y supervisión de sistemas eléctricos, mecánicos y sanitarios para proyectos comerciales, industriales y de infraestructura.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-servicio d-flex gap-3">
+                    <div class="icon-wrap flex-shrink-0"><i class="fas fa-hard-hat"></i></div>
+                    <div>
+                        <h5>Construcción y Remodelación de Obras</h5>
+                        <p>Construcción general y remodelación de locales comerciales, proyectos residenciales y obras de infraestructura con personal técnico calificado.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-servicio d-flex gap-3">
+                    <div class="icon-wrap flex-shrink-0"><i class="fas fa-drafting-compass"></i></div>
+                    <div>
+                        <h5>Diseño y Elaboración de Planos</h5>
+                        <p>Elaboración de planos constructivos y electromecánicos, cumpliendo normativa técnica y requisitos del CFIA.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-servicio d-flex gap-3">
+                    <div class="icon-wrap flex-shrink-0"><i class="fas fa-file-alt"></i></div>
+                    <div>
+                        <h5>Tramitología y Permisos de Construcción</h5>
+                        <p>Gestión completa de permisos de construcción y documentación técnica ante instituciones públicas y privadas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-servicio d-flex gap-3">
+                    <div class="icon-wrap flex-shrink-0"><i class="fas fa-fire-extinguisher"></i></div>
+                    <div>
+                        <h5>Sistemas Especializados de Infraestructura</h5>
+                        <p>Instalación de sistemas contra incendio, tuberías subterráneas, infraestructura eléctrica, mecánica y sanitaria.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROCESO -->
+<section class="bg-light-ciesa">
+    <div class="container">
+        <h2 class="section-heading">Proceso de Trabajo</h2>
+        <div class="row g-4 text-center">
+            <div class="col-md-3">
+                <div class="proceso-step">
+                    <div class="paso-num">01</div>
+                    <h6 style="font-weight:700;">Evaluación</h6>
+                    <p style="color:#555; font-size:0.9rem;">Evaluación en sitio del proyecto</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="proceso-step">
+                    <div class="paso-num">02</div>
+                    <h6 style="font-weight:700;">Planificación</h6>
+                    <p style="color:#555; font-size:0.9rem;">Plan de trabajo detallado</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="proceso-step">
+                    <div class="paso-num">03</div>
+                    <h6 style="font-weight:700;">Ejecución</h6>
+                    <p style="color:#555; font-size:0.9rem;">Ejecución y control de calidad</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="proceso-step">
+                    <div class="paso-num">04</div>
+                    <h6 style="font-weight:700;">Cierre</h6>
+                    <p style="color:#555; font-size:0.9rem;">Cierre con validación técnica</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section>
+    <div class="container">
+        <h2 class="section-heading">Beneficios Clave</h2>
+        <p class="section-sub">Por qué elegir nuestros servicios eléctricos</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="principios-card">
+                    <div class="icon-circle"><i class="fas fa-shield-alt"></i></div>
+                    <h5>Seguridad Certificada</h5>
+                    <p>Cumplimiento con el Código Eléctrico Nacional y normas NFPA para garantizar instalaciones seguras y confiables.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="principios-card">
+                    <div class="icon-circle"><i class="fas fa-leaf"></i></div>
+                    <h5>Eficiencia Energética</h5>
+                    <p>Materiales de alta calidad que reducen el consumo eléctrico y optimizan el rendimiento energético.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="principios-card">
+                    <div class="icon-circle"><i class="fas fa-headset"></i></div>
+                    <h5>Atención Personalizada</h5>
+                    <p>Seguimiento técnico desde el diseño hasta la entrega final con soporte continuo post-instalación.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="bg-light-ciesa">
+    <div class="container" style="max-width:800px;">
+        <h2 class="section-heading">Preguntas Frecuentes</h2>
+        <p class="section-sub">Resolvemos las dudas más comunes sobre nuestros servicios</p>
+        <div class="faq-item">
+            <h6>¿Cómo solicito una cotización?</h6>
+            <p>Puedes contactarnos por WhatsApp, teléfono o completar nuestro formulario de contacto.</p>
+        </div>
+        <div class="faq-item">
+            <h6>¿Cuáles son los tiempos de entrega?</h6>
+            <p>Los tiempos varían según el proyecto. Residenciales: 1-3 semanas. Comerciales e industriales: 2-8 semanas.</p>
+        </div>
+        <div class="faq-item">
+            <h6>¿Ofrecen garantía en sus trabajos?</h6>
+            <p>Sí. Instalaciones eléctricas: 2 años. Remodelaciones: 1 año. Diseños: garantía técnica.</p>
+        </div>
+        <div class="faq-item">
+            <h6>¿Trabajan en toda Costa Rica?</h6>
+            <p>Sí, brindamos servicios en todo el territorio nacional. Para proyectos fuera del GAM aplicamos costos de movilización.</p>
+        </div>
+        <div class="faq-item">
+            <h6>¿Gestionan los trámites municipales?</h6>
+            <p>Sí, ofrecemos gestión completa de trámites y permisos ante las autoridades correspondientes.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <h3>Conocé la calidad detrás de cada obra. Construimos soluciones, no solo proyectos.</h3>
+        <a th:href="@{/reunion}" class="btn-teal mt-3" style="display:inline-block;">Agendar una Reunión</a>
+    </div>
+</section>
+
+<div th:replace="~{fragmentos :: footer}"></div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
