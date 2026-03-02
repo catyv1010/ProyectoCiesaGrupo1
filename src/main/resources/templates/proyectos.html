@@ -1,192 +1,112 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Proyectos – CIESA</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/webjars/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="/css/estilos.css">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Proyectos – CIESA</title>
+        <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/webjars/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet" href="/css/estilos.css">
+    </head>
+    <body>
 
-<!-- NAVBAR -->
-<div th:replace="~{fragmentos :: navbar}"></div>
+        <!-- NAVBAR -->
+        <div th:replace="~{fragmentos :: navbar}"></div>
 
-<!-- HERO -->
-<section class="hero-section" style="background: linear-gradient(135deg, rgba(14,47,68,0.85), rgba(31,163,124,0.55)), url('/img/hero-bg.jpg') center 40%/cover no-repeat; min-height: 500px;">
-    <div>
-        <h1>Nuestros Proyectos</h1>
-        <p>Cada obra cuenta una historia de confianza, precisión y compromiso.</p>
-    </div>
-</section>
+        <!-- HERO -->
+        <section class="hero-section" style="background: linear-gradient(135deg, rgba(14,47,68,0.85), rgba(31,163,124,0.55)), url('/img/hero-bg.jpg') center 40%/cover no-repeat; min-height: 500px;">
+            <div>
+                <h1>Nuestros Proyectos</h1>
+                <p>Cada obra cuenta una historia de confianza, precisión y compromiso.</p>
+            </div>
+        </section>
 
-<!-- EXPERIENCIA -->
-<section style="padding: 70px 0; text-align:center;">
-    <div class="container">
-        <h2 style="font-weight:700; font-size:2rem; margin-bottom:20px;">Experiencia que Construye Confianza</h2>
-        <p style="color:#555; max-width:700px; margin:0 auto; line-height:1.8;">
-            En CIESA hemos desarrollado proyectos residenciales, comerciales e industriales que reflejan
-            nuestra excelencia técnica y el compromiso con cada cliente. Desde remodelaciones hasta
-            instalaciones electromecánicas completas, cada obra representa nuestra pasión por hacer
-            las cosas bien desde el inicio.
-        </p>
-    </div>
-</section>
+        <!-- EXPERIENCIA -->
+        <section style="padding: 70px 0; text-align:center;">
+            <div class="container">
+                <h2 style="font-weight:700; font-size:2rem; margin-bottom:20px;">Experiencia que Construye Confianza</h2>
+                <p style="color:#555; max-width:700px; margin:0 auto; line-height:1.8;">
+                    En CIESA hemos desarrollado proyectos residenciales, comerciales e industriales que reflejan
+                    nuestra excelencia técnica y el compromiso con cada cliente. Desde remodelaciones hasta
+                    instalaciones electromecánicas completas, cada obra representa nuestra pasión por hacer
+                    las cosas bien desde el inicio.
+                </p>
+            </div>
+        </section>
 
-<!-- GALERÍA DE PROYECTOS -->
-<section class="bg-light-ciesa" style="padding: 70px 0;">
-    <div class="container">
-        <p class="section-title">Proyectos</p>
-        <h2 class="section-heading">Ejecuciones reales en electromecánica, infraestructura y remodelación.</h2>
-        <p class="section-sub">Trabajos en proyectos comerciales, residenciales y de infraestructura. Enfoque en calidad técnica, cumplimiento y seguridad.</p>
+        <!-- GALERÍA DE PROYECTOS -->
+        <section class="bg-light-ciesa" style="padding: 70px 0;">
+            <div class="container">
+                <p class="section-title">Proyectos</p>
+                <h2 class="section-heading">Ejecuciones reales en electromecánica, infraestructura y remodelación.</h2>
+                <p class="section-sub">Trabajos en proyectos comerciales, residenciales y de infraestructura. Enfoque en calidad técnica, cumplimiento y seguridad.</p>
 
-        <div class="row g-4">
-            <!-- Proyecto 1 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-                    <img src="/img/proyecto1.jpg" alt="Proyecto 1"
-                         style="height:220px; object-fit:cover; width:100%;"
-                         onerror="this.src='https://placehold.co/400x220/0E2F44/white?text=Proyecto+1'">
-                    <div class="card-body p-4">
-                        <span style="background:#1FA37C; color:white; font-size:0.75rem; padding:3px 12px; border-radius:20px; font-weight:600;">Electromecánica</span>
-                        <h5 style="font-weight:700; margin:14px 0 10px; font-size:1rem;">Instalación de tubería HN y aislante</h5>
-                        <p style="color:#555; font-size:0.88rem; line-height:1.6;">
-                            Montaje e instalación de tubería HN con aislamiento térmico para sistemas electromecánicos,
-                            garantizando eficiencia operativa, seguridad y cumplimiento técnico en áreas técnicas y cuartos de equipos.
-                        </p>
+                <div class="row g-4">
+                    <div class="col-md-4" th:each="p : ${proyectos}">
+                        <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
+                            <img th:src="${p.rutaImagen}" th:alt="${p.titulo}"
+                                 style="height:220px; object-fit:cover; width:100%;"
+                                 onerror="this.src='https://placehold.co/400x220/0E2F44/white?text=Proyecto'">
+                            <div class="card-body p-4">
+                                <span th:text="${p.categoria}"
+                                      style="color:white; font-size:0.75rem; padding:3px 12px; border-radius:20px; font-weight:600;"
+                                      th:styleappend="${p.categoria == 'Electromecánica'} ? 'background:#1FA37C;' : 'background:#374151;'">
+                                </span>
+                                <h5 style="font-weight:700; margin:14px 0 10px; font-size:1rem;" th:text="${p.titulo}"></h5>
+                                <p style="color:#555; font-size:0.88rem; line-height:1.6;" th:text="${p.descripcion}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" th:if="${#lists.isEmpty(proyectos)}">
+                        <p style="text-align:center; color:#888; padding:40px 0;">No hay proyectos disponibles en este momento.</p>
                     </div>
                 </div>
-            </div>
-            <!-- Proyecto 2 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-                    <img src="/img/proyecto2.jpg" alt="Proyecto 2"
-                         style="height:220px; object-fit:cover; width:100%;"
-                         onerror="this.src='https://placehold.co/400x220/0E2F44/white?text=Proyecto+2'">
-                    <div class="card-body p-4">
-                        <span style="background:#374151; color:white; font-size:0.75rem; padding:3px 12px; border-radius:20px; font-weight:600;">Infraestructura</span>
-                        <h5 style="font-weight:700; margin:14px 0 10px; font-size:1rem;">Instalación de tubería PVC y accesos</h5>
-                        <p style="color:#555; font-size:0.88rem; line-height:1.6;">
-                            Ejecución de redes internas en tubería PVC para canalización de servicios, accesos técnicos y
-                            distribución en obra, tanto en proyectos nuevos como en remodelaciones.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <!-- Proyecto 3 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-                    <img src="/img/proyecto3.jpg" alt="Proyecto 3"
-                         style="height:220px; object-fit:cover; width:100%;"
-                         onerror="this.src='https://placehold.co/400x220/0E2F44/white?text=Proyecto+3'">
-                    <div class="card-body p-4">
-                        <span style="background:#1FA37C; color:white; font-size:0.75rem; padding:3px 12px; border-radius:20px; font-weight:600;">Electromecánica</span>
-                        <h5 style="font-weight:700; margin:14px 0 10px; font-size:1rem;">Tubería HN céd. 40 y aislante</h5>
-                        <p style="color:#555; font-size:0.88rem; line-height:1.6;">
-                            Instalación de tubería HN cédula 40 con aislamiento para sistemas mecánicos y electromecánicos,
-                            utilizada en infraestructuras comerciales, industriales y técnicas.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <!-- Proyecto 4 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-                    <img src="/img/proyecto4.jpg" alt="Proyecto 4"
-                         style="height:220px; object-fit:cover; width:100%;"
-                         onerror="this.src='https://placehold.co/400x220/0E2F44/white?text=Proyecto+4'">
-                    <div class="card-body p-4">
-                        <span style="background:#374151; color:white; font-size:0.75rem; padding:3px 12px; border-radius:20px; font-weight:600;">Infraestructura</span>
-                        <h5 style="font-weight:700; margin:14px 0 10px; font-size:1rem;">Planificación de obra previa a actividades</h5>
-                        <p style="color:#555; font-size:0.88rem; line-height:1.6;">
-                            Planificación técnica y coordinación de obra antes del inicio de los trabajos, incluyendo logística,
-                            secuencia constructiva, seguridad y optimización de recursos en sitio.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <!-- Proyecto 5 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-                    <img src="/img/proyecto5.jpg" alt="Proyecto 5"
-                         style="height:220px; object-fit:cover; width:100%;"
-                         onerror="this.src='https://placehold.co/400x220/0E2F44/white?text=Proyecto+5'">
-                    <div class="card-body p-4">
-                        <span style="background:#1FA37C; color:white; font-size:0.75rem; padding:3px 12px; border-radius:20px; font-weight:600;">Electromecánica</span>
-                        <h5 style="font-weight:700; margin:14px 0 10px; font-size:1rem;">Instalación de luminarias suspendidas</h5>
-                        <p style="color:#555; font-size:0.88rem; line-height:1.6;">
-                            Instalación de sistemas de iluminación suspendida en áreas comerciales, industriales y de oficinas,
-                            cumpliendo criterios técnicos, eléctricos y normativos.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <!-- Proyecto 6 -->
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-                    <img src="/img/proyecto6.jpg" alt="Proyecto 6"
-                         style="height:220px; object-fit:cover; width:100%;"
-                         onerror="this.src='https://placehold.co/400x220/0E2F44/white?text=Proyecto+6'">
-                    <div class="card-body p-4">
-                        <span style="background:#1FA37C; color:white; font-size:0.75rem; padding:3px 12px; border-radius:20px; font-weight:600;">Electromecánica</span>
-                        <h5 style="font-weight:700; margin:14px 0 10px; font-size:1rem;">Instalación eléctrica: iluminación y tomacorrientes</h5>
-                        <p style="color:#555; font-size:0.88rem; line-height:1.6;">
-                            Ejecución de instalaciones eléctricas para sistemas de iluminación y tomacorrientes, incluyendo
-                            cableado, canalización y puesta en funcionamiento conforme a normativa vigente.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- STATS -->
-<section style="background-color:#E8F5F0; padding: 60px 0;">
-    <div class="container">
-        <div class="row text-center g-4">
-            <div class="col-md-4">
-                <div style="width:70px; height:70px; background:#1FA37C; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
-                    <i class="fas fa-calendar-check" style="color:white; font-size:1.4rem;"></i>
-                </div>
-                <div style="font-size:2.2rem; font-weight:800; color:#111827;">+14 años</div>
-                <div style="color:#555; font-size:0.95rem;">de experiencia</div>
-            </div>
-            <div class="col-md-4">
-                <div style="width:70px; height:70px; background:#1FA37C; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
-                    <i class="fas fa-building" style="color:white; font-size:1.4rem;"></i>
-                </div>
-                <div style="font-size:2.2rem; font-weight:800; color:#111827;">+120</div>
-                <div style="color:#555; font-size:0.95rem;">proyectos completados</div>
-            </div>
-            <div class="col-md-4">
-                <div style="width:70px; height:70px; background:#1FA37C; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
-                    <i class="fas fa-map-marker-alt" style="color:white; font-size:1.4rem;"></i>
-                </div>
-                <div style="font-size:2.2rem; font-weight:800; color:#111827;">Costa Rica</div>
-                <div style="color:#555; font-size:0.95rem;">Cobertura nacional</div>
-            </div>
-        </div>
-    </div>
-</section>
+                <!-- STATS -->
+                <section style="background-color:#E8F5F0; padding: 60px 0;">
+                    <div class="container">
+                        <div class="row text-center g-4">
+                            <div class="col-md-4">
+                                <div style="width:70px; height:70px; background:#1FA37C; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                                    <i class="fas fa-calendar-check" style="color:white; font-size:1.4rem;"></i>
+                                </div>
+                                <div style="font-size:2.2rem; font-weight:800; color:#111827;">+14 años</div>
+                                <div style="color:#555; font-size:0.95rem;">de experiencia</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="width:70px; height:70px; background:#1FA37C; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                                    <i class="fas fa-building" style="color:white; font-size:1.4rem;"></i>
+                                </div>
+                                <div style="font-size:2.2rem; font-weight:800; color:#111827;">+120</div>
+                                <div style="color:#555; font-size:0.95rem;">proyectos completados</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="width:70px; height:70px; background:#1FA37C; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+                                    <i class="fas fa-map-marker-alt" style="color:white; font-size:1.4rem;"></i>
+                                </div>
+                                <div style="font-size:2.2rem; font-weight:800; color:#111827;">Costa Rica</div>
+                                <div style="color:#555; font-size:0.95rem;">Cobertura nacional</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-<!-- CTA -->
-<section style="background-color:#0E2F44; padding:70px 0; text-align:center; color:white;">
-    <div class="container">
-        <h3 style="font-size:1.8rem; font-weight:700; margin-bottom:16px;">
-            Conocé la calidad detrás de cada obra. Construimos soluciones, no solo proyectos.
-        </h3>
-        <a href="/reunion" class="btn-teal mt-3" style="display:inline-block; padding:14px 35px;">
-            Agendar una Reunión
-        </a>
-    </div>
-</section>
+                <!-- CTA -->
+                <section style="background-color:#0E2F44; padding:70px 0; text-align:center; color:white;">
+                    <div class="container">
+                        <h3 style="font-size:1.8rem; font-weight:700; margin-bottom:16px;">
+                            Conocé la calidad detrás de cada obra. Construimos soluciones, no solo proyectos.
+                        </h3>
+                        <a href="/reunion" class="btn-teal mt-3" style="display:inline-block; padding:14px 35px;">
+                            Agendar una Reunión
+                        </a>
+                    </div>
+                </section>
 
-<!-- FOOTER -->
-<div th:replace="~{fragmentos :: footer}"></div>
+                <!-- FOOTER -->
+                <div th:replace="~{fragmentos :: footer}"></div>
 
-<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+                <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+                </body>
+                </html>

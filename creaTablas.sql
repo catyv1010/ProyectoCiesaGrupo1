@@ -108,3 +108,23 @@ INSERT INTO contacto (nombre, correo, asunto, mensaje, leido) VALUES
 
 INSERT INTO postulacion (nombre, cedula, correo, telefono, puesto, revisado) VALUES
   ('Carlos Rodríguez', '1-2345-6789', 'carlos@email.com', '8888-1111', 'Ingeniero Eléctrico', FALSE);
+
+CREATE TABLE proyecto (
+  id_proyecto INT NOT NULL AUTO_INCREMENT,
+  titulo      VARCHAR(150) NOT NULL,
+  descripcion TEXT,
+  categoria   VARCHAR(50),
+  ruta_imagen VARCHAR(1024),
+  activo      BOOLEAN DEFAULT TRUE,
+  fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_proyecto)
+) ENGINE = InnoDB;
+
+INSERT INTO proyecto (titulo, descripcion, categoria, ruta_imagen, activo) VALUES
+  ('Instalación de tubería HN y aislante', 'Montaje e instalación de tubería HN con aislamiento térmico para sistemas electromecánicos, garantizando eficiencia operativa, seguridad y cumplimiento técnico en áreas técnicas y cuartos de equipos.', 'Electromecánica', '/img/proyecto1.jpg', TRUE),
+  ('Instalación de tubería PVC y accesos', 'Ejecución de redes internas en tubería PVC para canalización de servicios, accesos técnicos y distribución en obra, tanto en proyectos nuevos como en remodelaciones.', 'Infraestructura', '/img/proyecto2.jpg', TRUE),
+  ('Tubería HN céd. 40 y aislante', 'Instalación de tubería HN cédula 40 con aislamiento para sistemas mecánicos y electromecánicos, utilizada en infraestructuras comerciales, industriales y técnicas.', 'Electromecánica', '/img/proyecto3.jpg', TRUE),
+  ('Planificación de obra previa a actividades', 'Planificación técnica y coordinación de obra antes del inicio de los trabajos, incluyendo logística, secuencia constructiva, seguridad y optimización de recursos en sitio.', 'Infraestructura', '/img/proyecto4.jpg', TRUE),
+  ('Instalación de luminarias suspendidas', 'Instalación de sistemas de iluminación suspendida en áreas comerciales, industriales y de oficinas, cumpliendo criterios técnicos, eléctricos y normativos.', 'Electromecánica', '/img/proyecto5.jpg', TRUE),
+  ('Instalación eléctrica: iluminación y tomacorrientes', 'Ejecución de instalaciones eléctricas para sistemas de iluminación y tomacorrientes, incluyendo cableado, canalización y puesta en funcionamiento conforme a normativa vigente.', 'Electromecánica', '/img/proyecto6.jpg', TRUE);
+

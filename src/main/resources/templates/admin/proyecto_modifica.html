@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar Proyecto – CIESA Admin</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div class="sidebar">
+    <div class="brand"><i class="fa fa-building" style="color:white;"></i><span>&nbsp;CIESA | Admin</span></div>
+    <nav class="nav flex-column">
+        <a class="nav-link" th:href="@{/admin/dashboard}"><i class="fas fa-chart-bar"></i> Dashboard</a>
+        <a class="nav-link" th:href="@{/admin/contactos}"><i class="fas fa-envelope"></i> Solicitudes contacto</a>
+        <a class="nav-link" th:href="@{/admin/postulaciones}"><i class="fas fa-briefcase"></i> Postulaciones laborales</a>
+        <a class="nav-link active" th:href="@{/admin/proyectos}"><i class="fas fa-folder-open"></i> Proyectos</a>
+        <hr style="border-color:rgba(255,255,255,0.1); margin:12px 16px;">
+        <a class="nav-link" th:href="@{/}"><i class="fas fa-globe"></i> Ver sitio</a>
+        <a class="nav-link" th:href="@{/logout}" style="color:#f87171 !important;"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+    </nav>
+</div>
+<div class="admin-navbar">
+    <h6 style="margin:0; font-weight:700;">Editar Proyecto</h6>
+    <a th:href="@{/admin/proyectos}" class="btn btn-sm btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Volver al listado
+    </a>
+</div>
+<div class="admin-content">
+    <div class="bg-white rounded-3 shadow-sm p-4" style="max-width:800px;">
+        <form th:action="@{/admin/proyectos/guardar}" th:object="${proyecto}" method="post">
+
+            <!-- Campos ocultos para mantener el ID y la fecha -->
+            <input type="hidden" th:field="*{idProyecto}">
+            <input type="hidden" th:field="*{fechaCreacion}">
+
+            <div class="row g-3">
+                <div class="col-md-8">
+                    <label class="form-label">Título</label>
+                    <input type="text" th:field="*{titulo}" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Categoría</label>
+                    <select th:field="*{categoria}" class="form-select" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Electromecánica">Electromecánica</option>
+                        <option value="Infraestructura">Infraestructura</option>
+                        <option value="Remodelación">Remodelación</option>
+                        <option value="Construcción">Construcción</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Descripción</label>
+                    <textarea th:field="*{descripcion}" class="form-control" rows="4" required></textarea>
+                </div>
+                <div class="col-md-8">
+                    <label class="form-label">URL de Imagen</label>
+                    <input type="text" th:field="*{rutaImagen}" class="form-control"
+                           placeholder="/img/proyecto1.jpg">
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <div class="form-check">
+                        <input type="checkbox" th:field="*{activo}" class="form-check-input">
+                        <label class="form-check-label">Proyecto activo</label>
+                    </div>
+                </div>
+
+                <!-- Vista previa de imagen -->
+                <div class="col-12" th:if="${proyecto.rutaImagen != null}">
+                    <label class="form-label">Vista previa</label><br>
+                    <img th:src="${proyecto.rutaImagen}" alt="Vista previa"
+                         style="max-height:200px; border-radius:8px; border:1px solid #ddd;"
+                         onerror="this.style.display='none'">
+                </div>
+
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn" style="background-color:#1FA37C; color:white;">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                    <a th:href="@{/admin/proyectos}" class="btn btn-secondary ms-2">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Proyectos – CIESA Admin</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+<div class="sidebar">
+    <div class="brand"><i class="fa fa-building" style="color:white;"></i><span>&nbsp;CIESA | Admin</span></div>
+    <nav class="nav flex-column">
+        <a class="nav-link" th:href="@{/admin/dashboard}"><i class="fas fa-chart-bar"></i> Dashboard</a>
+        <a class="nav-link" th:href="@{/admin/contactos}"><i class="fas fa-envelope"></i> Solicitudes contacto</a>
+        <a class="nav-link" th:href="@{/admin/postulaciones}"><i class="fas fa-briefcase"></i> Postulaciones laborales</a>
+        <a class="nav-link active" th:href="@{/admin/proyectos}"><i class="fas fa-folder-open"></i> Proyectos</a>
+        <hr style="border-color:rgba(255,255,255,0.1); margin:12px 16px;">
+        <a class="nav-link" th:href="@{/}"><i class="fas fa-globe"></i> Ver sitio</a>
+        <a class="nav-link" th:href="@{/logout}" style="color:#f87171 !important;"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+    </nav>
+</div>
+<div class="admin-navbar">
+    <h6 style="margin:0; font-weight:700;">Gestión de Proyectos</h6>
+    <span style="color:#888; font-size:0.88rem;" th:text="${totalProyectos} + ' proyectos registrados'"></span>
+</div>
+<div class="admin-content">
+
+    <!-- Alertas -->
+    <div th:if="${exito}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle"></i> <span th:text="${exito}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle"></i> <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <!-- Botón Agregar -->
+    <div class="mb-3">
+        <button type="button" class="btn btn-sm" style="background-color:#1FA37C; color:white;"
+                data-bs-toggle="modal" data-bs-target="#agregarProyectoModal">
+            <i class="fas fa-plus"></i> Agregar Proyecto
+        </button>
+    </div>
+
+    <!-- Tabla de proyectos -->
+    <div class="bg-white rounded-3 shadow-sm p-4">
+        <table class="table table-hover">
+            <thead style="background:#f5f5f5;">
+                <tr>
+                    <th>#</th>
+                    <th>Imagen</th>
+                    <th>Título</th>
+                    <th>Categoría</th>
+                    <th>Activo</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${lista}">
+                    <td th:text="${p.idProyecto}"></td>
+                    <td>
+                        <img th:if="${p.rutaImagen != null}" th:src="${p.rutaImagen}"
+                             alt="img" style="height:50px; width:70px; object-fit:cover; border-radius:6px;"
+                             onerror="this.src='https://placehold.co/70x50/0E2F44/white?text=Sin+img'">
+                        <span th:if="${p.rutaImagen == null}" style="color:#888; font-size:0.85rem;">Sin imagen</span>
+                    </td>
+                    <td th:text="${p.titulo}"></td>
+                    <td>
+                        <span th:text="${p.categoria}"
+                              style="font-size:0.78rem; padding:3px 10px; border-radius:20px; font-weight:600;"
+                              th:styleappend="${p.categoria == 'Electromecánica'} ? 'background:#1FA37C; color:white;' : 'background:#374151; color:white;'">
+                        </span>
+                    </td>
+                    <td>
+                        <span th:if="${p.activo}" style="color:#22c55e; font-weight:600;">Sí</span>
+                        <span th:if="${!p.activo}" style="color:#888;">No</span>
+                    </td>
+                    <td th:text="${p.fechaCreacion != null} ? ${#temporals.format(p.fechaCreacion, 'dd/MM/yyyy')} : '-'"></td>
+                    <td>
+                        <a th:href="@{/admin/proyectos/modificar/{id}(id=${p.idProyecto})}"
+                           class="btn btn-sm btn-outline-primary" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                data-bs-toggle="modal" data-bs-target="#eliminarModal"
+                                th:data-id="${p.idProyecto}" th:data-titulo="${p.titulo}"
+                                onclick="document.getElementById('modalId').value=this.getAttribute('data-id'); document.getElementById('modalTitulo').textContent=this.getAttribute('data-titulo');">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="7" style="text-align:center; color:#888; padding:30px;">No hay proyectos registrados.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL AGREGAR PROYECTO -->
+<div class="modal fade" id="agregarProyectoModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form th:action="@{/admin/proyectos/guardar}" th:object="${proyecto}" method="post">
+                <div class="modal-header" style="background:#0E2F44; color:white;">
+                    <h5 class="modal-title"><i class="fas fa-plus-circle"></i> Agregar Proyecto</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label">Título</label>
+                            <input type="text" th:field="*{titulo}" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Categoría</label>
+                            <select th:field="*{categoria}" class="form-select" required>
+                                <option value="">Seleccione...</option>
+                                <option value="Electromecánica">Electromecánica</option>
+                                <option value="Infraestructura">Infraestructura</option>
+                                <option value="Remodelación">Remodelación</option>
+                                <option value="Construcción">Construcción</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Descripción</label>
+                            <textarea th:field="*{descripcion}" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label">URL de Imagen</label>
+                            <input type="text" th:field="*{rutaImagen}" class="form-control"
+                                   placeholder="/img/proyecto1.jpg">
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <div class="form-check">
+                                <input type="checkbox" th:field="*{activo}" class="form-check-input" checked>
+                                <label class="form-check-label">Proyecto activo (visible en sitio)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn" style="background-color:#1FA37C; color:white;">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL ELIMINAR -->
+<div class="modal fade" id="eliminarModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/proyectos/eliminar}" method="post">
+                <div class="modal-header" style="background:#dc3545; color:white;">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="idProyecto" id="modalId">
+                    <p>¿Está seguro de que desea eliminar el proyecto <strong id="modalTitulo"></strong>?</p>
+                    <p style="color:#888; font-size:0.88rem;">Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
