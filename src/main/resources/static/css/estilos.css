@@ -502,3 +502,10 @@ footer .footer-bottom {
     .admin-content, .admin-navbar { margin-left: 0; }
     .form-card { padding: 24px; }
 }
+
+.navbar-ciesa .nav-link.active {
+    color: white !important;
+    font-weight: 700;
+    border-bottom: 2px solid var(--green);
+    padding-bottom: 4px !important;
+}
