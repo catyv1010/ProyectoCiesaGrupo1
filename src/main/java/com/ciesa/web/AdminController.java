@@ -56,13 +56,27 @@ public class AdminController {
 
     @GetMapping("/postulaciones")
     public String postulaciones(Model model) {
-        model.addAttribute("lista", postulacionService.getTodas());
+        var lista = postulacionService.getTodas();
+        model.addAttribute("lista", lista);
+        model.addAttribute("totalPostulaciones", lista.size());
         return "admin/postulaciones";
     }
 
     @GetMapping("/postulaciones/revisar/{id}")
     public String marcarRevisada(@PathVariable Integer id) {
         postulacionService.marcarRevisada(id);
+        return "redirect:/admin/postulaciones";
+    }
+
+    @PostMapping("/postulaciones/eliminar")
+    public String eliminarPostulacion(@RequestParam Integer idPostulacion,
+            RedirectAttributes redirectAttributes) {
+        try {
+            postulacionService.eliminar(idPostulacion);
+            redirectAttributes.addFlashAttribute("exito", "Postulación eliminada correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo eliminar la postulación.");
+        }
         return "redirect:/admin/postulaciones";
     }
 

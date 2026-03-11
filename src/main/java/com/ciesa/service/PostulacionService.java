@@ -37,4 +37,9 @@ public class PostulacionService {
             postulacionRepository.save(p);
         });
     }
+
+    @Transactional
+    public void eliminar(Integer id) {
+        postulacionRepository.deleteById(id);
+    }
 }

@@ -1,6 +1,7 @@
 package com.ciesa.web;
 
 import com.ciesa.domain.Postulacion;
+import com.ciesa.service.FirebaseStorageService;
 import com.ciesa.service.PostulacionService;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class PostulacionController {
 
     private final PostulacionService postulacionService;
+    private final FirebaseStorageService firebaseStorageService;
 
-    public PostulacionController(PostulacionService postulacionService) {
+    public PostulacionController(PostulacionService postulacionService,
+            FirebaseStorageService firebaseStorageService) {
         this.postulacionService = postulacionService;
+        this.firebaseStorageService = firebaseStorageService;
     }
 
     @GetMapping
@@ -29,14 +33,18 @@ public class PostulacionController {
     public String enviar(@ModelAttribute Postulacion postulacion,
             @RequestParam("archivoCv") MultipartFile archivoCv,
             RedirectAttributes redirectAttrs) {
-        // NOTA: Para subir a Firebase, inyectar FirebaseStorageService y llamar uploadImage()
-        // Por ahora se guarda solo el nombre del archivo
-        if (!archivoCv.isEmpty()) {
-            postulacion.setRutaCv(archivoCv.getOriginalFilename());
+        try {
+            if (!archivoCv.isEmpty()) {
+                String url = firebaseStorageService.uploadImage(archivoCv, "cv");
+                postulacion.setRutaCv(url);
+            }
+            postulacion.setFechaEnvio(LocalDateTime.now());
+            postulacion.setRevisado(false);
+            postulacionService.guardar(postulacion);
+        } catch (Exception e) {
+            redirectAttrs.addFlashAttribute("error", "Error al enviar: " + e.getMessage());
+            return "redirect:/empleo";
         }
-        postulacion.setFechaEnvio(LocalDateTime.now());
-        postulacion.setRevisado(false);
-        postulacionService.guardar(postulacion);
         return "redirect:/empleo/gracias";
     }
 }

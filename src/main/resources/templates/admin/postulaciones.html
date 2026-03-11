@@ -1,72 +1,118 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
+<head>
     <th:block th:replace="~{fragmentos :: head(titulo='Postulaciones - CIESA Admin')}" />
 </head>
-    <body>
-        <div class="sidebar">
-            <div class="brand"><i class="fa fa-building" style="color:white;"></i><span>&nbsp;CIESA | Admin</span></div>
-            <nav class="nav flex-column">
-                <a class="nav-link" th:href="@{/admin/dashboard}"><i class="fas fa-chart-bar"></i> Dashboard</a>
-                <a class="nav-link" th:href="@{/admin/contactos}"><i class="fas fa-envelope"></i> Solicitudes contacto</a>
-                <a class="nav-link active" th:href="@{/admin/postulaciones}"><i class="fas fa-briefcase"></i> Postulaciones laborales</a>
-                <a class="nav-link" th:href="@{/admin/proyectos}"><i class="fas fa-folder-open"></i> Proyectos</a>
-                <hr style="border-color:rgba(255,255,255,0.1); margin:12px 16px;">
-                <a class="nav-link" th:href="@{/}"><i class="fas fa-globe"></i> Ver sitio</a>
-                <a class="nav-link" th:href="@{/logout}" style="color:#f87171 !important;"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
-            </nav>
+<body>
+<div class="sidebar">
+    <div class="brand"><i class="fa fa-building" style="color:white;"></i><span>&nbsp;CIESA | Admin</span></div>
+    <nav class="nav flex-column">
+        <a class="nav-link" th:href="@{/admin/dashboard}"><i class="fas fa-chart-bar"></i> Dashboard</a>
+        <a class="nav-link" th:href="@{/admin/contactos}"><i class="fas fa-envelope"></i> Solicitudes contacto</a>
+        <a class="nav-link active" th:href="@{/admin/postulaciones}"><i class="fas fa-briefcase"></i> Postulaciones laborales</a>
+        <a class="nav-link" th:href="@{/admin/proyectos}"><i class="fas fa-folder-open"></i> Proyectos</a>
+        <hr style="border-color:rgba(255,255,255,0.1); margin:12px 16px;">
+        <a class="nav-link" th:href="@{/}"><i class="fas fa-globe"></i> Ver sitio</a>
+        <a class="nav-link" th:href="@{/logout}" style="color:#f87171 !important;"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+    </nav>
+</div>
+<div class="admin-navbar">
+    <h6 style="margin:0; font-weight:700;">Postulaciones Laborales</h6>
+    <span style="color:#888; font-size:0.88rem;" th:text="${totalPostulaciones} + ' postulaciones registradas'"></span>
+</div>
+<div class="admin-content">
+
+    <!-- Alertas -->
+    <div th:if="${exito}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle"></i> <span th:text="${exito}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-circle"></i> <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
+    <div class="bg-white rounded-3 shadow-sm p-4">
+        <table class="table table-hover">
+            <thead style="background:#f5f5f5;">
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Correo</th>
+                    <th>Puesto</th>
+                    <th>CV</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${lista}">
+                    <td th:text="${p.idPostulacion}"></td>
+                    <td th:text="${p.nombre}"></td>
+                    <td th:text="${p.cedula}"></td>
+                    <td th:text="${p.correo}"></td>
+                    <td th:text="${p.puesto}"></td>
+                    <td>
+                        <a th:if="${p.rutaCv != null}" th:href="${p.rutaCv}" target="_blank"
+                           class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-file-pdf"></i> Ver CV
+                        </a>
+                        <span th:if="${p.rutaCv == null}" style="color:#888; font-size:0.85rem;">Sin CV</span>
+                    </td>
+                    <td th:text="${#temporals.format(p.fechaEnvio, 'dd/MM/yyyy')}"></td>
+                    <td>
+                        <span th:if="${!p.revisado}" class="badge-nuevo">Nuevo</span>
+                        <span th:if="${p.revisado}" style="color:#888; font-size:0.85rem;">Revisado</span>
+                    </td>
+                    <td>
+                        <a th:if="${!p.revisado}"
+                           th:href="@{/admin/postulaciones/revisar/{id}(id=${p.idPostulacion})}"
+                           class="btn btn-sm btn-outline-secondary" title="Marcar revisado">
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                data-bs-toggle="modal" data-bs-target="#eliminarModal"
+                                th:data-id="${p.idPostulacion}" th:data-nombre="${p.nombre}"
+                                onclick="document.getElementById('modalId').value=this.getAttribute('data-id'); document.getElementById('modalNombre').textContent=this.getAttribute('data-nombre');">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="9" style="text-align:center; color:#888; padding:30px;">No hay postulaciones aún.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL ELIMINAR -->
+<div class="modal fade" id="eliminarModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:action="@{/admin/postulaciones/eliminar}" method="post">
+                <div class="modal-header" style="background:#dc3545; color:white;">
+                    <h5 class="modal-title"><i class="fas fa-exclamation-triangle"></i> Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="idPostulacion" id="modalId">
+                    <p>¿Está seguro de que desea eliminar la postulación de <strong id="modalNombre"></strong>?</p>
+                    <p style="color:#888; font-size:0.88rem;">Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class="admin-navbar">
-            <h6 style="margin:0; font-weight:700;">Postulaciones Laborales</h6>
-        </div>
-        <div class="admin-content">
-            <div class="bg-white rounded-3 shadow-sm p-4">
-                <table class="table table-hover">
-                    <thead style="background:#f5f5f5;">
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Cédula</th>
-                            <th>Correo</th>
-                            <th>Puesto</th>
-                            <th>CV</th>
-                            <th>Fecha</th>
-                            <th>Estado</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="p : ${lista}">
-                            <td th:text="${p.idPostulacion}"></td>
-                            <td th:text="${p.nombre}"></td>
-                            <td th:text="${p.cedula}"></td>
-                            <td th:text="${p.correo}"></td>
-                            <td th:text="${p.puesto}"></td>
-                            <td>
-                                <a th:if="${p.rutaCv != null}" th:href="${p.rutaCv}" target="_blank"
-                                   class="btn btn-sm btn-outline-primary">
-                                    <i class="fas fa-file-pdf"></i> Ver CV
-                                </a>
-                                <span th:if="${p.rutaCv == null}" style="color:#888; font-size:0.85rem;">Sin CV</span>
-                            </td>
-                            <td th:text="${#temporals.format(p.fechaEnvio, 'dd/MM/yyyy')}"></td>
-                            <td>
-                                <span th:if="${!p.revisado}" class="badge-nuevo">Nuevo</span>
-                                <span th:if="${p.revisado}" style="color:#888; font-size:0.85rem;">Revisado</span>
-                            </td>
-                            <td>
-                                <a th:if="${!p.revisado}"
-                                   th:href="@{/admin/postulaciones/revisar/{id}(id=${p.idPostulacion})}"
-                                   class="btn btn-sm btn-outline-secondary">Marcar revisado</a>
-                            </td>
-                        </tr>
-                        <tr th:if="${#lists.isEmpty(lista)}">
-                            <td colspan="9" style="text-align:center; color:#888; padding:30px;">No hay postulaciones aún.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
-    </body>
+    </div>
+</div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
 </html>
