@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Editar Proyecto – CIESA Admin</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <th:block th:replace="~{fragmentos :: head(titulo='Editar Proyecto - CIESA Admin')}" />
 </head>
 <body>
 <div class="sidebar">
@@ -28,7 +24,7 @@
 </div>
 <div class="admin-content">
     <div class="bg-white rounded-3 shadow-sm p-4" style="max-width:800px;">
-        <form th:action="@{/admin/proyectos/guardar}" th:object="${proyecto}" method="post">
+        <form th:action="@{/admin/proyectos/guardar}" th:object="${proyecto}" method="post" enctype="multipart/form-data">
 
             <!-- Campos ocultos para mantener el ID y la fecha -->
             <input type="hidden" th:field="*{idProyecto}">
@@ -54,9 +50,10 @@
                     <textarea th:field="*{descripcion}" class="form-control" rows="4" required></textarea>
                 </div>
                 <div class="col-md-8">
-                    <label class="form-label">URL de Imagen</label>
-                    <input type="text" th:field="*{rutaImagen}" class="form-control"
-                           placeholder="/img/proyecto1.jpg">
+                    <label class="form-label">Cambiar imagen (opcional)</label>
+                    <input type="file" name="archivoImagen" class="form-control" accept="image/*">
+                    <small class="text-muted">Dejalo vacío para mantener la imagen actual. Formatos: JPG, PNG, WEBP (max 5MB)</small>
+                    <input type="hidden" th:field="*{rutaImagen}">
                 </div>
                 <div class="col-md-4 d-flex align-items-end">
                     <div class="form-check">
@@ -65,9 +62,9 @@
                     </div>
                 </div>
 
-                <!-- Vista previa de imagen -->
+                <!-- Vista previa de imagen actual -->
                 <div class="col-12" th:if="${proyecto.rutaImagen != null}">
-                    <label class="form-label">Vista previa</label><br>
+                    <label class="form-label">Imagen actual</label><br>
                     <img th:src="${proyecto.rutaImagen}" alt="Vista previa"
                          style="max-height:200px; border-radius:8px; border:1px solid #ddd;"
                          onerror="this.style.display='none'">

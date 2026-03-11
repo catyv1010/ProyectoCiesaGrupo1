@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <!-- ========== HEAD COMÚN ========== -->
+        <th:block th:fragment="head(titulo)">
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title th:text="${titulo}">CIESA</title>
+            <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}">
+            <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+            <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+            <link rel="stylesheet" th:href="@{/css/estilos.css}">
+        </th:block>
+    </head>
     <body>
 
         <!-- ========== NAVBAR ========== -->

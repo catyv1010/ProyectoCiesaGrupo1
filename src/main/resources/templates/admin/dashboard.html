@@ -2,12 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
-        <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Panel Administrativo – CIESA</title>
-        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
-        <link rel="stylesheet" th:href="@{/css/estilos.css}">
-    </head>
+    <th:block th:replace="~{fragmentos :: head(titulo='Panel Administrativo - CIESA')}" />
+</head>
     <body>
         <!-- SIDEBAR -->
         <div class="sidebar">

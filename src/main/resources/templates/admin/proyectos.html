@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Proyectos – CIESA Admin</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <th:block th:replace="~{fragmentos :: head(titulo='Proyectos - CIESA Admin')}" />
 </head>
 <body>
 <div class="sidebar">
@@ -104,7 +100,7 @@
 <div class="modal fade" id="agregarProyectoModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form th:action="@{/admin/proyectos/guardar}" th:object="${proyecto}" method="post">
+            <form th:action="@{/admin/proyectos/guardar}" th:object="${proyecto}" method="post" enctype="multipart/form-data">
                 <div class="modal-header" style="background:#0E2F44; color:white;">
                     <h5 class="modal-title"><i class="fas fa-plus-circle"></i> Agregar Proyecto</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -130,9 +126,10 @@
                             <textarea th:field="*{descripcion}" class="form-control" rows="3" required></textarea>
                         </div>
                         <div class="col-md-8">
-                            <label class="form-label">URL de Imagen</label>
-                            <input type="text" th:field="*{rutaImagen}" class="form-control"
-                                   placeholder="/img/proyecto1.jpg">
+                            <label class="form-label">Imagen del proyecto</label>
+                            <input type="file" name="archivoImagen" class="form-control"
+                                   accept="image/*" required>
+                            <small class="text-muted">Formatos: JPG, PNG, WEBP (max 5MB)</small>
                         </div>
                         <div class="col-md-4 d-flex align-items-end">
                             <div class="form-check">

@@ -25,6 +25,9 @@ public class SecurityConfig {
         var rutas = rutaService.getRutas();
 
         http.authorizeHttpRequests(requests -> {
+            // Recursos estáticos siempre públicos
+            requests.requestMatchers("/webjars/**", "/css/**", "/js/**", "/img/**", "/fav/**").permitAll();
+
             for (Ruta ruta : rutas) {
                 if (ruta.isRequiereRol()) {
                     requests.requestMatchers(ruta.getRuta())

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{fragmentos :: head(titulo='Postulación enviada - CIESA')}" />
+    <th:block th:replace="~{fragmentos :: head(titulo='Reunión confirmada - CIESA')}" />
 </head>
 <body style="background:#f5f5f5;">
 <div th:replace="~{fragmentos :: navbar}"></div>
 <div class="success-card">
     <div class="check-circle"><i class="fas fa-check"></i></div>
-    <h2 style="font-weight:700; margin-bottom:20px;">Formulario enviado con éxito</h2>
-    <p style="color:#555;">Gracias por su interés.</p>
-    <p style="color:#555; margin-top:10px;">Su información fue recibida correctamente y será revisada por nuestro equipo.</p>
-    <p style="color:#aaa; font-size:0.9rem; margin-top:20px;">En caso de que su perfil se ajuste a nuestras necesidades, nos pondremos en contacto con usted.</p>
+    <h2 style="font-weight:700; margin-bottom:20px;">Reunión agendada con éxito</h2>
+    <p style="color:#555;">Gracias por agendar una reunión con CIESA.</p>
+    <p style="color:#555; margin-top:10px;">Hemos recibido su solicitud correctamente. Nuestro equipo se pondrá en contacto para confirmar los detalles.</p>
+    <p style="color:#aaa; font-size:0.9rem; margin-top:20px;">Si tiene alguna consulta adicional, puede escribirnos por WhatsApp al +506 8658-6161.</p>
     <a th:href="@{/}" class="btn-teal mt-4" style="display:inline-block;">Volver al inicio</a>
 </div>
 <footer style="background:#333; color:#aaa; text-align:center; padding:20px; margin-top:40px;">

@@ -2,6 +2,7 @@ package com.ciesa.web;
 
 import com.ciesa.domain.Proyecto;
 import com.ciesa.service.ContactoService;
+import com.ciesa.service.FirebaseStorageService;
 import com.ciesa.service.PostulacionService;
 import com.ciesa.service.ProyectoService;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -18,13 +20,16 @@ public class AdminController {
     private final ContactoService contactoService;
     private final PostulacionService postulacionService;
     private final ProyectoService proyectoService;
+    private final FirebaseStorageService firebaseStorageService;
 
     public AdminController(ContactoService contactoService,
             PostulacionService postulacionService,
-            ProyectoService proyectoService) {
+            ProyectoService proyectoService,
+            FirebaseStorageService firebaseStorageService) {
         this.contactoService = contactoService;
         this.postulacionService = postulacionService;
         this.proyectoService = proyectoService;
+        this.firebaseStorageService = firebaseStorageService;
     }
 
     @GetMapping("/dashboard")
@@ -74,12 +79,23 @@ public class AdminController {
 
     @PostMapping("/proyectos/guardar")
     public String guardarProyecto(@ModelAttribute Proyecto proyecto,
+            @RequestParam("archivoImagen") MultipartFile archivoImagen,
             RedirectAttributes redirectAttributes) {
-        if (proyecto.getIdProyecto() == null) {
-            proyecto.setFechaCreacion(LocalDateTime.now());
+        try {
+            // Si se subió una imagen, subirla a Firebase
+            if (archivoImagen != null && !archivoImagen.isEmpty()) {
+                String url = firebaseStorageService.uploadImage(archivoImagen, "proyectos");
+                proyecto.setRutaImagen(url);
+            }
+
+            if (proyecto.getIdProyecto() == null) {
+                proyecto.setFechaCreacion(LocalDateTime.now());
+            }
+            proyectoService.guardar(proyecto);
+            redirectAttributes.addFlashAttribute("exito", "Proyecto guardado correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al guardar: " + e.getMessage());
         }
-        proyectoService.guardar(proyecto);
-        redirectAttributes.addFlashAttribute("exito", "Proyecto guardado correctamente.");
         return "redirect:/admin/proyectos";
     }
 

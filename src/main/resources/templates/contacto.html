@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contacto – CIESA</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <th:block th:replace="~{fragmentos :: head(titulo='Contacto - CIESA')}" />
 </head>
 <body>
 <div th:replace="~{fragmentos :: navbar}"></div>
@@ -95,5 +91,6 @@
 
 <div th:replace="~{fragmentos :: footer}"></div>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<th:block th:replace="~{fragmentos :: navscript}" />
 </body>
 </html>
