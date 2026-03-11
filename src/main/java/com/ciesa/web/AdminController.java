@@ -67,6 +67,18 @@ public class AdminController {
         postulacionService.marcarRevisada(id);
         return "redirect:/admin/postulaciones";
     }
+    
+    @GetMapping("/postulaciones/archivar/{id}")
+    public String archivarPostulacion(@PathVariable Integer id,
+            RedirectAttributes redirectAttributes) {
+        try {
+            postulacionService.archivar(id);
+            redirectAttributes.addFlashAttribute("exito", "Postulación archivada correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo archivar la postulación.");
+        }
+        return "redirect:/admin/postulaciones";
+    }
 
     @PostMapping("/postulaciones/eliminar")
     public String eliminarPostulacion(@RequestParam Integer idPostulacion,

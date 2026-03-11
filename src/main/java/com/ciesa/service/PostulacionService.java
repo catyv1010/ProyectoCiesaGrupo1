@@ -42,4 +42,17 @@ public class PostulacionService {
     public void eliminar(Integer id) {
         postulacionRepository.deleteById(id);
     }
+    
+    @Transactional(readOnly = true)
+    public List<Postulacion> getArchivadas() {
+        return postulacionRepository.findByArchivadoTrueOrderByFechaEnvioDesc();
+    }
+
+    @Transactional
+    public void archivar(Integer id) {
+        postulacionRepository.findById(id).ifPresent(p -> {
+            p.setArchivado(true);
+            postulacionRepository.save(p);
+        });
+    }
 }

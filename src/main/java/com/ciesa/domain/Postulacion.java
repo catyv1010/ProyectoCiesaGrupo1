@@ -24,6 +24,7 @@ public class Postulacion implements Serializable {
     private String rutaCv;
 
     private boolean revisado;
+    private boolean archivado;
 
     @Column(name = "fecha_envio")
     private LocalDateTime fechaEnvio;
@@ -51,6 +52,9 @@ public class Postulacion implements Serializable {
 
     public boolean isRevisado() { return revisado; }
     public void setRevisado(boolean revisado) { this.revisado = revisado; }
+    
+    public boolean isArchivado() { return archivado; }
+    public void setArchivado(boolean archivado) { this.archivado = archivado; }
 
     public LocalDateTime getFechaEnvio() { return fechaEnvio; }
     public void setFechaEnvio(LocalDateTime fechaEnvio) { this.fechaEnvio = fechaEnvio; }

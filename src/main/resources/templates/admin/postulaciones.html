@@ -72,6 +72,13 @@
                            class="btn btn-sm btn-outline-secondary" title="Marcar revisado">
                             <i class="fas fa-check"></i>
                         </a>
+                        
+                        <a th:if="${!p.archivado}"
+                           th:href="@{/admin/postulaciones/archivar/{id}(id=${p.idPostulacion})}"
+                           class="btn btn-sm btn-outline-warning" title="Archivar postulación">
+                            <i class="fas fa-archive"></i>
+                        </a>
+                        
                         <button type="button" class="btn btn-sm btn-outline-danger"
                                 data-bs-toggle="modal" data-bs-target="#eliminarModal"
                                 th:data-id="${p.idPostulacion}" th:data-nombre="${p.nombre}"

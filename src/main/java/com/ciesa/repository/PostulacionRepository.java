@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface PostulacionRepository extends JpaRepository<Postulacion, Integer> {
     List<Postulacion> findAllByOrderByFechaEnvioDesc();
     List<Postulacion> findByRevisadoFalseOrderByFechaEnvioDesc();
+    List<Postulacion> findByArchivadoTrueOrderByFechaEnvioDesc();
+    List<Postulacion> findByArchivadoFalseOrderByFechaEnvioDesc();
+    
 }
