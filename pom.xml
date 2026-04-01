@@ -70,6 +70,12 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+        <!-- Spring Mail (envío de correos - Lección 11) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
         <!-- Firebase Admin SDK (para subir CV) -->
         <dependency>
             <groupId>com.google.firebase</groupId>
