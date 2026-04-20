@@ -3,3 +3,7 @@ target/
 *.war
 .netbeans/
 nbproject/
+
+# Credenciales de Firebase - no subir a GitHub
+firebase-key.json
+*firebase-adminsdk*.json
