@@ -1,6 +1,7 @@
 package com.ciesa.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,10 +15,19 @@ public class Contacto implements Serializable {
     @Column(name = "id_contacto")
     private Integer idContacto;
 
+    @NotBlank(message = "El nombre es requerido")
     private String nombre;
+
+    @NotBlank(message = "El correo es requerido")
+    @Email(message = "Ingrese un correo válido")
     private String correo;
+
+    @NotBlank(message = "El asunto es requerido")
     private String asunto;
+
+    @NotBlank(message = "El mensaje es requerido")
     private String mensaje;
+
     private boolean leido;
 
     @Column(name = "fecha_envio")

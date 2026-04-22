@@ -3,11 +3,13 @@ package com.ciesa.web;
 import com.ciesa.domain.Contacto;
 import com.ciesa.service.ContactoService;
 import com.ciesa.service.CorreoService;
+import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,8 +36,14 @@ public class ContactoController {
     }
 
     @PostMapping("/enviar")
-    public String enviar(@ModelAttribute Contacto contacto,
+    public String enviar(@Valid @ModelAttribute Contacto contacto,
+            BindingResult result,
             RedirectAttributes redirectAttrs) {
+        if (result.hasErrors()) {
+            redirectAttrs.addFlashAttribute("error",
+                    "Por favor, complete todos los campos correctamente.");
+            return "redirect:/contacto";
+        }
         contacto.setFechaEnvio(LocalDateTime.now());
         contacto.setLeido(false);
         contactoService.guardar(contacto);

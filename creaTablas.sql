@@ -72,6 +72,9 @@ INSERT INTO ruta (ruta, requiere_rol) VALUES
 INSERT INTO ruta (ruta, requiere_rol, id_rol) VALUES
   ('/admin/**', TRUE, 1);
 
+-- Ruta pública para reunion (el formulario público)
+INSERT INTO ruta (ruta, requiere_rol) VALUES ('/reunion/**', FALSE);
+
 -- ===== TABLA CONTACTO =====
 CREATE TABLE contacto (
   id_contacto INT NOT NULL AUTO_INCREMENT,
@@ -108,6 +111,27 @@ INSERT INTO contacto (nombre, correo, asunto, mensaje, leido) VALUES
 
 INSERT INTO postulacion (nombre, cedula, correo, telefono, puesto, revisado) VALUES
   ('Carlos Rodríguez', '1-2345-6789', 'carlos@email.com', '8888-1111', 'Ingeniero Eléctrico', FALSE);
+
+-- =============================================
+-- FIX: columna faltante en postulacion
+-- =============================================
+ALTER TABLE postulacion ADD COLUMN IF NOT EXISTS archivado BOOLEAN DEFAULT FALSE;
+
+-- =============================================
+-- TABLA REUNION
+-- =============================================
+CREATE TABLE reunion (
+  id_reunion   INT NOT NULL AUTO_INCREMENT,
+  nombre       VARCHAR(100) NOT NULL,
+  correo       VARCHAR(100) NOT NULL,
+  telefono     VARCHAR(25) NOT NULL,
+  servicio     VARCHAR(100) NOT NULL,
+  fecha        DATE NOT NULL,
+  comentarios  TEXT,
+  atendido     BOOLEAN DEFAULT FALSE,
+  fecha_envio  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_reunion)
+) ENGINE = InnoDB;
 
 CREATE TABLE proyecto (
   id_proyecto INT NOT NULL AUTO_INCREMENT,

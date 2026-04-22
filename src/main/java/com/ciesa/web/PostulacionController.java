@@ -4,11 +4,13 @@ import com.ciesa.domain.Postulacion;
 import com.ciesa.service.CorreoService;
 import com.ciesa.service.FirebaseStorageService;
 import com.ciesa.service.PostulacionService;
+import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -39,9 +41,15 @@ public class PostulacionController {
     }
 
     @PostMapping("/enviar")
-    public String enviar(@ModelAttribute Postulacion postulacion,
+    public String enviar(@Valid @ModelAttribute Postulacion postulacion,
+            BindingResult result,
             @RequestParam("archivoCv") MultipartFile archivoCv,
             RedirectAttributes redirectAttrs) {
+        if (result.hasErrors()) {
+            redirectAttrs.addFlashAttribute("error",
+                    "Por favor, complete todos los campos requeridos correctamente.");
+            return "redirect:/empleo";
+        }
         try {
             if (!archivoCv.isEmpty()) {
                 try {

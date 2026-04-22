@@ -1,6 +1,7 @@
 package com.ciesa.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,10 +15,20 @@ public class Postulacion implements Serializable {
     @Column(name = "id_postulacion")
     private Integer idPostulacion;
 
+    @NotBlank(message = "El nombre es requerido")
     private String nombre;
+
+    @NotBlank(message = "La cédula es requerida")
     private String cedula;
+
+    @NotBlank(message = "El correo es requerido")
+    @Email(message = "Ingrese un correo válido")
     private String correo;
+
+    @NotBlank(message = "El teléfono es requerido")
     private String telefono;
+
+    @NotBlank(message = "Seleccione un puesto")
     private String puesto;
 
     @Column(name = "ruta_cv")

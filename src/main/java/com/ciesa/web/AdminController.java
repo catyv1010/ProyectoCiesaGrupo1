@@ -1,10 +1,14 @@
 package com.ciesa.web;
 
 import com.ciesa.domain.Proyecto;
+import com.ciesa.domain.Usuario;
 import com.ciesa.service.ContactoService;
 import com.ciesa.service.FirebaseStorageService;
 import com.ciesa.service.PostulacionService;
 import com.ciesa.service.ProyectoService;
+import com.ciesa.service.ReunionService;
+import com.ciesa.service.UsuarioService;
+import com.ciesa.repository.RolRepository;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.stereotype.Controller;
@@ -21,15 +25,24 @@ public class AdminController {
     private final PostulacionService postulacionService;
     private final ProyectoService proyectoService;
     private final FirebaseStorageService firebaseStorageService;
+    private final ReunionService reunionService;
+    private final UsuarioService usuarioService;
+    private final RolRepository rolRepository;
 
     public AdminController(ContactoService contactoService,
             PostulacionService postulacionService,
             ProyectoService proyectoService,
-            FirebaseStorageService firebaseStorageService) {
+            FirebaseStorageService firebaseStorageService,
+            ReunionService reunionService,
+            UsuarioService usuarioService,
+            RolRepository rolRepository) {
         this.contactoService = contactoService;
         this.postulacionService = postulacionService;
         this.proyectoService = proyectoService;
         this.firebaseStorageService = firebaseStorageService;
+        this.reunionService = reunionService;
+        this.usuarioService = usuarioService;
+        this.rolRepository = rolRepository;
     }
 
     @GetMapping("/dashboard")
@@ -39,6 +52,8 @@ public class AdminController {
         model.addAttribute("totalPostulaciones", postulacionService.getTodas().size());
         model.addAttribute("postulacionesNuevas", postulacionService.getNoRevisadas().size());
         model.addAttribute("totalProyectos", proyectoService.getTodos().size());
+        model.addAttribute("totalReuniones", reunionService.getTodas().size());
+        model.addAttribute("reunionesPendientes", reunionService.getPendientes().size());
         return "admin/dashboard";
     }
 
@@ -147,5 +162,75 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("error", "No se pudo eliminar el proyecto.");
         }
         return "redirect:/admin/proyectos";
+    }
+
+    // ========== REUNIONES ==========
+
+    @GetMapping("/reuniones")
+    public String reuniones(Model model) {
+        var lista = reunionService.getTodas();
+        model.addAttribute("lista", lista);
+        model.addAttribute("totalReuniones", lista.size());
+        return "admin/reuniones";
+    }
+
+    @GetMapping("/reuniones/atender/{id}")
+    public String atenderReunion(@PathVariable Integer id,
+            RedirectAttributes redirectAttributes) {
+        try {
+            reunionService.marcarAtendida(id);
+            redirectAttributes.addFlashAttribute("exito", "Reunión marcada como atendida.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo actualizar la reunión.");
+        }
+        return "redirect:/admin/reuniones";
+    }
+
+    @PostMapping("/reuniones/eliminar")
+    public String eliminarReunion(@RequestParam Integer idReunion,
+            RedirectAttributes redirectAttributes) {
+        try {
+            reunionService.eliminar(idReunion);
+            redirectAttributes.addFlashAttribute("exito", "Solicitud eliminada correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo eliminar la solicitud.");
+        }
+        return "redirect:/admin/reuniones";
+    }
+
+    // ========== USUARIOS ==========
+
+    @GetMapping("/usuarios")
+    public String usuarios(Model model) {
+        model.addAttribute("lista", usuarioService.getTodos());
+        model.addAttribute("roles", rolRepository.findAll());
+        return "admin/usuarios";
+    }
+
+    @PostMapping("/usuarios/guardar")
+    public String guardarUsuario(@ModelAttribute Usuario usuario,
+            @RequestParam Integer idRol,
+            RedirectAttributes redirectAttributes) {
+        try {
+            usuarioService.guardar(usuario, idRol);
+            redirectAttributes.addFlashAttribute("exito",
+                    "Usuario '" + usuario.getUsername() + "' creado correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Error al crear el usuario: " + e.getMessage());
+        }
+        return "redirect:/admin/usuarios";
+    }
+
+    @GetMapping("/usuarios/toggle/{id}")
+    public String toggleUsuario(@PathVariable Integer id,
+            RedirectAttributes redirectAttributes) {
+        try {
+            usuarioService.toggleActivo(id);
+            redirectAttributes.addFlashAttribute("exito", "Estado del usuario actualizado.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "No se pudo actualizar el usuario.");
+        }
+        return "redirect:/admin/usuarios";
     }
 }
